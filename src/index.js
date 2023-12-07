@@ -49,26 +49,60 @@ const pizzaData = [
 
 function App() {
   return (
-    <div>
-      <h1>Helllo React!</h1>
+    <div className="container">
       <Header />
       <Menu />
       <Footer />
     </div>
   );
 }
+
 function Header() {
-  return <h1>Fast React Pizza Co.</h1>;
+  // const style = { color: "red", fontSize: "48px", textTransform: "uppercase" };
+
+  const style = {};
+  return (
+    <header className="header">
+      <h1>Fast React Pizza Co.</h1>;
+    </header>
+  );
 }
 
 function Menu() {
   return (
-    <div>
+    <main className="menu">
       <h2>Our menu</h2>
-      <Pizza />
-      <Pizza />
-      <Pizza />
-      <Pizza />
+      {/* <Pizza
+        name="Pizza Spinaci"
+        ingredient="Tomato, mozarella, spanish and  ricotta cheese"
+        photoName="pizzas/spinaci.jpg"
+        price={10}
+      />
+      <Pizza
+        name="Pizza Fungich"
+        ingredient="Tomato, Mionuous, spanish and  ricotta cheese"
+        photoName="pizzas/funghi.jpg"
+        price={12}
+      /> */}
+      <div className="pizzas">
+        {pizzaData.map((pizza) => (
+          <Pizza name={pizza.name} photoName={pizza.photoName} ingredient={pizza.ingredients} price={pizza.price} />
+        ))}
+      </div>
+    </main>
+  );
+}
+
+function Pizza(props) {
+  console.log(props);
+  return (
+    <div className="pizza">
+      <img src={props.photoName} alt={props.name} />
+      <div>
+        <h3>{props.name}</h3>
+        <p>{props.ingredient}</p>
+        <span>{props.price}$</span>
+      </div>
     </div>
   );
 }
@@ -85,16 +119,9 @@ function Footer() {
   // else alert("Sorry we are close");
 
   return (
-    <footer>{new Date().toLocaleTimeString()}. We're currently open</footer>
-  );
-}
-function Pizza() {
-  return (
-    <div>
-      <img src="pizzas/spinaci.jpg" alt="pizzaimage" />
-      <h2>Pizza Spinaci</h2>
-      <p>Tomato,mozarella,spinch nad ricotto cheese</p>
-    </div>
+    <footer className="footer">
+      {new Date().toLocaleTimeString()}. We're currently open
+    </footer>
   );
 }
 
