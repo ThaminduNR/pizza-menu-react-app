@@ -69,6 +69,9 @@ function Header() {
 }
 
 function Menu() {
+  const pizzas = pizzaData;
+  // const pizzas = [];
+  const numPizza = pizzas.length;
   return (
     <main className="menu">
       <h2>Our menu</h2>
@@ -84,24 +87,29 @@ function Menu() {
         photoName="pizzas/funghi.jpg"
         price={12}
       /> */}
-      <ul className="pizzas">
-        {pizzaData.map((pizza) => (
-          <Pizza pizzaObj={pizza} key={pizza.name} />
-        ))}
-      </ul>
+      {numPizza > 0 ? (
+        <ul className="pizzas">
+          {pizzas.map((pizza) => (
+            <Pizza pizzaObj={pizza} key={pizza.name} />
+          ))}
+        </ul>
+      ) : (
+        <p>pizza unavailabnle</p>
+      )}
     </main>
   );
+
 }
 
-function Pizza(props) {
-  console.log(props);
+function Pizza({pizzaObj}) {
+
   return (
-    <li className="pizza">
-      <img src={props.pizzaObj.photoName} alt={props.name} />
+    <li className={`pizza ${pizzaObj.soldOut ? "sold-out" : ""}`}>
+      <img src={pizzaObj.photoName} alt={pizzaObj.name} />
       <div>
-        <h3>{props.pizzaObj.name}</h3>
-        <p>{props.pizzaObj.ingredients}</p>
-        <span>{props.pizzaObj.price}$</span>
+        <h3>{pizzaObj.name}</h3>
+        <p>{pizzaObj.ingredients}</p>
+        <span>{pizzaObj.price}$</span>
       </div>
     </li>
   );
@@ -125,7 +133,7 @@ function Footer() {
           <div className="order">
             <p>
               We're open until {closeHour}:00, come visit us or order online
-            </p>{" "}
+            </p>
             <button className="btn">Order</button>
           </div>
         ) : (
